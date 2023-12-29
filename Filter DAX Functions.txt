@@ -1,0 +1,93 @@
+logical DAX Functions
+
+Step-1: Create one measure and write conditional statement
+
+Sales_Tag =
+Var TotalSales= SUM(Orders[Sales])
+Return
+SWITCH(TRUE(),
+TotalSales<50000, "Low",
+TotalSales>50000 && TotalSales< 100000, "Medium",
+TotalSales>100000, "High",
+"Other"
+)
+-------------------------------
+Return Month Name =
+SWITCH(Orders[MonthNumber],
+1,"January",
+2,"February",
+3,"March",
+4,"April",
+5,"May",
+6,"June",
+7,"July",
+8,"August",
+9,"September",
+10,"October",
+11,"November",
+12,"December",
+"Invalid Month Number"
+)
+---------------------------------------
+Step-1: Create a measure and write IF condition as mentioned below.
+
+IF Condition =
+Var TotalSales = SUM(Orders[Sales])
+Return
+IF(TotalSales >= 100000, "Profit", "Loss")
+-------------------------------------------------
+Step-2 : Create another measure to implement a nested IF condition.
+
+Nested_IF =
+Var TotalSales= SUM(Orders[Sales])
+Return
+IF(TotalSales<50000, "Low",
+IF(TotalSales>50000 && TotalSales< 100000, "Medium",
+IF(TotalSales>100000, "High",
+"Other"
+)
+)
+)
+
+-------------------------------------
+Now create one measure for AND Dax function
+
+SUM with AND = CALCULATE(
+SUM('Global-Superstore'[Sales]),
+FILTER (
+'Global-Superstore',
+'Global-Superstore'[Category] = "Furniture" &&
+'Global-Superstore'[Sub-Category]="Chairs"
+) )
+-----------------------------------------------
+NOT_DAX =
+CALCULATE(
+SUM('Global-Superstore'[Sales]),
+FILTER('Global-Superstore',
+NOT('Global-Superstore'[Region]) IN {"Africa", "Canada", "Caribbean"}
+))
+--------------------------------------
+Add one measure to understand the working of Coalesce DAX-
+
+Coalesce_DAX = COALESCE( BLANK() , "No value")
+--------------------------------------
+Coalesce_DAX = COALESCE( 12345 , "No value")
+----------------------------------
+=================Text DAX=============
+Step 1: Create a new column. Right-click on your dataset name, and then select ‘New Column’.
+
+Region_New = UPPER(Users[Region])
+-------------------------------------
+CONCATENATE_Result =
+CONCATENATE(Orders[Product Category], Orders[Product Sub-Category])
+-------------------------------------
+============Information Functions=============
+Step-1: Create a measure for UPN.
+
+UPN = USERPRINCIPALNAME()
+
+Go to Modeling Tab >Manage roles > Click on create
+
+[Email] = USERPRINCIPALNAME()
+
+------------------------------

@@ -1,0 +1,85 @@
+Charts:
+
+Line chart:
+
+this chart used for show change or trends over a period of time.
+especially effective trends overtime and highlight change data values
+
+x-axis :catgeory
+y-axis :sales,profit
+-----------------------------------------
+clustered coulmn
+
+data display vertical columns group by catgeory
+especially use compare values across different catgeories
+
+x-axis:Region
+legend:catgeory
+y-axis:sales
+--------------------
+cluster Bar
+comparision horizental columns
+
+x-axis:Region
+legend:catgeory
+y-axis:sales
+-------------------------------
+
+stacked column
+
+compare multiple diemensions against single measure
+x-region
+y-sales
+legend:catgeory
+
+-----------------------------------------------
+100% stacked column
+
+display relative percentage of multiple data series
+
+sub-catgeory within catgeory cumulative value
+
+India---Ts---Revenue
+-------------------------------------
+stacked bar chart
+
+compare the composition of different data catgeories while also show individual component within each catgeory
+
+x--sales
+y-region
+legend-catgeory
+---------------------------
+100% stacked bar chart
+
+compare the composition of proportional contribution of subcatgeories within each catgeory
+x-sales
+y-region
+legend:catgeory
+----------------------------------------------
+Matrix vs Table
+
+Table
+
+rows and columns
+display all data
+row canot fixed but column fixed
+----------------
+Matrix
+
+its a grid format
+row and columns are not fixed
+----------------------------
+card
+card display single value like totals,count
+------------------------------------------
+multi-card
+
+it display multiple records of values.
+
+
+
+
+
+
+
+

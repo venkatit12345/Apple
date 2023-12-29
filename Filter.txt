@@ -1,0 +1,131 @@
+Filter
+---------
+All--retrives all the values in a table/column value
+ ALL function removes the applied filters from the filter context. 
+
+
+All_Measure = CALCULATE(SUM(Orders[Sales]),ALL(Orders[Category]))
+=======================================================
+ALLSELECTED function
+
+Returns all the rows in a table, or all the values in a column
+Removes context filters from columns and rows in the current query
+keeping filters that come from outside.
+
+ALLSELECTED= CALCULATE(sum(orders[sales]),ALLSELECTED(orders[Catgeory]))
+====================================
+ALL: Returns all the rows in a table or all the values in a column, ignoring any filters which might have been applied.
+ALLSELECTED: Returns all the values in a column, but it removes context filters from columns and rows in the current query while keeping the filters that come from outside.
+ALLEXCEPT: Returns all the values in a column except for those specified in the function.
+----------------------
+CALCULATE DAX  function evaluates an expression in a modified filter context. It comes under Filter DAX function category.
+
+CALCULATE is the most often used DAX function in Power BI,  this function works as a base function to apply other DAX functions in different scenarios.
+It evaluates the expression given by the user with all the applied filters.
+First argument(expression) returns a value not table, so you can use aggregation function like SUM, MIN, MAX, AVERAGE, COUNTROWS and so on.
+
+Dax_1=CALCULATE(sum(orders[sales]),FILTER(orders,orders[catgeory]="Technology"))---static
+
+Dax_1=CALCULATE(sum(orders[sales]),FILTER(orders,orders[catgeory]=ALLSELECTED(orders[Catgeory]))---static
+
+================================
+SUMX with filter =
+SUMX(
+Filter(Orders, Orders[Product Category]="Furniture"),
+Orders[Sales])
+
+SUMX with filter =
+SUMX(
+Filter(Orders, Orders[Product Category]=ALLSELECTED(orders[Catgeory])),
+Orders[Sales])
+--------------------------
+SUM Measure=
+CALCULATE(
+SUM(Orders[Sales]),----Expression
+Filter(Orders, Orders[Product Category]="Furniture")-- filter
+)
+
+SUM Measure=
+CALCULATE(
+SUM(Orders[Sales]),----Expression
+Filter(Orders, Orders[Product Category]=ALLSELECTED(orders[Catgeory]))-- filter
+)
+================================
+COUNTROWS =
+CALCULATE(
+COUNTROWS(Orders),
+FILTER(Orders, Orders[Region]="East")
+)
+
+COUNTROWS =
+CALCULATE(
+COUNTROWS(Orders),
+FILTER(Orders, Orders[Region]=ALLSELECTED(Orders[Region]))
+)
+--------------------------------
+Distinct Count  =
+CALCULATE(
+DISTINCTCOUNT( Orders[Product Category]),
+Filter(Orders, Orders[Region]="EAST" )
+)
+
+Distinct Count  =
+CALCULATE(
+DISTINCTCOUNT( Orders[Product Category]),
+Filter(Orders, Orders[Region]=ALLSELECTED(Orders[Region]) )
+)
+----------------------------
+Calculate with Multiple filter =
+CALCULATE(
+SUM(Orders[Sales]),----Expression
+Filter(Orders, Orders[Product Category]="Furniture"),-- Filter1
+Filter(Orders, Orders[Region]="West")-- Filter 2
+)
+
+Calculate with Multiple filter =
+CALCULATE(
+SUM(Orders[Sales]),----Expression
+Filter(Orders, Orders[Category]=ALLSELECTED(orders[Catgeory])),-- Filter1
+Filter(Orders, Orders[Region]=ALLSELECTED(Orders[Region]))-- Filter 2
+)
+---------Dynamic filter---
+Measure_x = CALCULATE(SUM(Orders[Sales]),FILTER(Orders,Orders[Category]=SELECTEDVALUE(Orders[Category])))
+--------------------------------
+CALCULATETABLE allows you to create virtual tables that you can filter using multiple conditions and use that table to make further calculations.
+
+Go to Modeling Tab > Select “DAX expression to create a new table”.
+
+=CALCULATETABLE(Orders, Orders[Sales]>200)
+--------------------------------------
+Calculate_Table_with_measure =
+SUMX(
+CALCULATETABLE(Orders, Orders[Sales]>200),
+Orders[Sales])
+---------------------------
+CALCULATETABLE function with SUMMARIZE function
+CALCULATETABLE function returns a table based on given filter condition, and it return all columns of base table.
+
+But if you want to see only specific columns then you can use SUMMARIZE DAX function with CALCULATETABLE.
+
+Now go to modeling tab > Add new DAX table
+
+Calculatetable_with_Summarize =
+CALCULATETABLE(
+SUMMARIZE(Orders, Orders[Category], Orders[Sub-Category], Orders[Sales]),
+Orders[Sales]>200)
+--------------------------------------
+Filter with AND cond. =
+SUMX(
+Filter(Orders,
+AND(Orders[Product Category]="Furniture",
+Orders[Region]="East" )),
+Orders[Sales]
+)
+
+Filter with AND cond. 2 =
+SUMX(
+Filter(Orders,
+Orders[Product Category]="Furniture" &&
+Orders[Region]="East" ),
+Orders[Sales]
+)
